@@ -8,6 +8,9 @@ DEBIAN_FRONTEND=noninteractive aptitude -y -o Dpkg::Options::="--force-confdef" 
 add-apt-repository -y ppa:pitti/postgresql
 aptitude -y install curl git-core jenkins libpq-dev nginx postgresql python-software-properties ufw virtualenvwrapper vim
 
+# Update Jenkins plugins
+su -l jenkins -c "curl -L http://updates.jenkins-ci.org/update-center.json | sed '1d;$d' | curl -X POST -H 'Accept: application/json' -d @- http://localhost:8080/updateCenter/byId/default/postBack"
+
 # Create PostgreSQL Jenkins user
 su -l postgres -c "createuser jenkins --createdb --no-superuser --no-createrole"
 
