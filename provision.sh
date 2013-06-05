@@ -112,3 +112,15 @@ echo "$jenkins" > /etc/nginx/sites-available/jenkins
 ln -s -f /etc/nginx/sites-available/jenkins /etc/nginx/sites-enabled/
 rm -f /etc/nginx/sites-enabled/default
 service nginx restart
+
+
+#####################
+# ufw configuration #
+services=( ssh http https )
+
+sudo ufw disable
+ufw default deny
+for service in "${services[@]}"; do
+  ufw allow $service
+done
+yes | ufw enable
