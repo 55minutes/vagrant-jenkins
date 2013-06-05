@@ -71,8 +71,11 @@ $jenkins_cli safe-restart
 
 ## Self signed SSL
 cn=ci.55minutes.com
-if [ ! -f ${cn}.key -a -f ${cn}.crt ]; then
-  openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=US/ST=California/L=Albany/O=55 Minutes/CN=${cn}" -keyout /etc/ssl/${cn}.key -out /etc/ssl/${cn}.crt
+ssl_dir=/etc/ssl
+ssl_key=$ssl_dir/${cn}.key
+ssl_crt=$ssl_dir/${cn}.crt
+if ! [ -f $ssl_key -a -f $ssl_crt ]; then
+  openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=US/ST=California/L=Albany/O=55 Minutes/CN=${cn}" -keyout $ssl_key -out $ssl_crt
 fi
 
 ## conf.d
