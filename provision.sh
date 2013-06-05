@@ -14,8 +14,6 @@ DEBIAN_FRONTEND=noninteractive aptitude -y -o Dpkg::Options::="--force-confdef" 
 ## Install OS packages
 aptitude -y install curl git-core jenkins libpq-dev nginx postgresql python-software-properties ufw virtualenvwrapper vim
 
-# Update Jenkins plugins
-su -l jenkins -c "curl -L http://updates.jenkins-ci.org/update-center.json | sed '1d;$d' | curl -X POST -H 'Accept: application/json' -d @- http://localhost:8080/updateCenter/byId/default/postBack"
 
 # Create PostgreSQL Jenkins user
 su -l postgres -c "createuser jenkins --createdb --no-superuser --no-createrole"
@@ -36,3 +34,24 @@ echo "$bashrc" > /tmp/rbenvrc
 
 ## Only replace ~/.bashrc if it doesn't already contain "rbenv init"
 su -l jenkins -c "grep -qs 'rbenv init' ~/.bashrc || (cat /tmp/rbenvrc ~/.bashrc > ~/.bashrc.tmp && mv ~/.bashrc.tmp ~/.bashrc)"
+
+
+# Update Jenkins plugins
+jenkins_url=http://localhost:8080
+cli_jar=/tmp/jenkins-cli.jar
+jenkins_cli="java -jar $cli_jar -s $jenkins_url"
+
+## Update the update center
+curl -L http://updates.jenkins-ci.org/update-center.json | sed '1d;$d' | curl -X POST -H 'Accept: application/json' -d @- $jenkins_url/updateCenter/byId/default/postBack
+
+## Download the CLI tool
+curl -L $jenkins_url/jnlpJars/jenkins-cli.jar -o $cli_jar
+
+## Install the plugins
+plugins=( git "github-oauth" campfire brakeman analysis-core)
+for plugin in "${plugins[@]}"; do
+  $jenkins_cli install-plugin "$plugin"
+done
+
+## Restart
+$jenkins_cli safe-restart
