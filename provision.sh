@@ -17,6 +17,12 @@ DEBIAN_FRONTEND=noninteractive aptitude -y -o Dpkg::Options::="--force-confdef" 
 aptitude -y install curl git-core imagemagick jenkins libmagickcore-dev libmagickwand-dev libpq-dev libqtwebkit-dev nginx nodejs postgresql python-software-properties ufw vim virtualenvwrapper
 
 
+####################
+# Generate SSH key #
+if [ ! -f ~jenkins/.ssh/id_rsa ]; then
+  su -l jenkins -c "mdkir -p ~/.ssh"
+  su -l jenkins -c "chmod 700 ~/.ssh"
+  su -l jenkins -c "ssh-keygen -t rsa -C "ci.55minutes.com" -f ~/.ssh/id_rsa -P ''"
 fi
 
 
