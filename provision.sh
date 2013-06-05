@@ -18,7 +18,9 @@ aptitude -y install curl git-core jenkins libpq-dev nginx postgresql python-soft
 
 ##################################
 # Create PostgreSQL Jenkins user #
-su -l postgres -c "createuser jenkins --createdb --no-superuser --no-createrole"
+if ! su -l postgres -c "psql -c '\du' | grep -q jenkins"; then
+  su -l postgres -c "createuser jenkins --createdb --no-superuser --no-createrole"
+fi
 
 
 #################
