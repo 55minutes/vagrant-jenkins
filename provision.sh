@@ -95,16 +95,16 @@ upstream jenkins {
 }
 
 server {
-    listen 80;
-    listen [::]:80 default ipv6only=on;
+    listen 80 default;
+    listen [::]:80 ipv6only=on;
     server_name ci.55minutes.com;
 
-    rewrite ^(.*) https://ci.55minutes.com$1 permanent;
+    rewrite ^ https://$server_name$request_uri? permanent;
 }
 
 server {
-    listen 443;
-    listen [::]:443 default ipv6only=on;
+    listen 443 default ssl;
+    listen [::]:443 ipv6only=on;
     server_name ci.55minutes.com;
 
     ssl on;
