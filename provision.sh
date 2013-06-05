@@ -17,10 +17,6 @@ DEBIAN_FRONTEND=noninteractive aptitude -y -o Dpkg::Options::="--force-confdef" 
 aptitude -y install curl git-core jenkins libpq-dev nginx postgresql python-software-properties ufw virtualenvwrapper vim
 
 
-##################################
-# Create PostgreSQL Jenkins user #
-if ! su -l postgres -c "psql -c '\du' | grep -q jenkins"; then
-  su -l postgres -c "createuser jenkins --createdb --no-superuser --no-createrole"
 fi
 
 
@@ -43,6 +39,13 @@ su -l jenkins -c "grep -qs 'rbenv init' ~/.bashrc || (cat /tmp/rbenvrc ~/.bashrc
 
 ## Boostrap rbenv
 ~jenkins/.rbenv/plugins/rbenv-bootstrap/bin/rbenv-bootstrap-ubuntu-12-04
+
+
+##################################
+# Create PostgreSQL Jenkins user #
+if ! su -l postgres -c "psql -c '\du' | grep -q jenkins"; then
+  su -l postgres -c "createuser jenkins --createdb --no-superuser --no-createrole"
+fi
 
 
 ##########################
