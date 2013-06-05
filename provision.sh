@@ -20,6 +20,7 @@ su -l jenkins -c "curl -L http://updates.jenkins-ci.org/update-center.json | sed
 # Create PostgreSQL Jenkins user
 su -l postgres -c "createuser jenkins --createdb --no-superuser --no-createrole"
 
+
 # Install rbenv
 aptitude -y install git-core
 su -l jenkins -c "curl -L https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash"
@@ -33,5 +34,5 @@ EOF
 )
 echo "$bashrc" > /tmp/rbenvrc
 
-# Only replace ~/.bashrc if it doesn't already contain "rbenv init"
-su -l jenkins -c "grep -qs 'rbenv init' ~/.bashrc || cat /tmp/rbenvrc ~/.bashrc > ~/.bashrc.tmp && mv ~/.bashrc.tmp ~/.bashrc"
+## Only replace ~/.bashrc if it doesn't already contain "rbenv init"
+su -l jenkins -c "grep -qs 'rbenv init' ~/.bashrc || (cat /tmp/rbenvrc ~/.bashrc > ~/.bashrc.tmp && mv ~/.bashrc.tmp ~/.bashrc)"
