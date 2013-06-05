@@ -65,6 +65,14 @@ $jenkins_cli safe-restart
 
 #######################
 # Nginx configuration #
+
+## Self signed SSL
+cn=ci.55minutes.com
+if [ ! -f ${cn}.key -a -f ${cn}.crt ]; then
+  openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=US/ST=California/L=Albany/O=55 Minutes/CN=${cn}" -keyout /etc/ssl/${cn}.key -out /etc/ssl/${cn}.crt
+fi
+
+## conf.d
 jenkins=$(cat <<'EOF'
 upstream app_server {
     server 127.0.0.1:8080 fail_timeout=0;
