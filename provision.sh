@@ -121,6 +121,9 @@ server {
     # Enable STS, http://8n.href.be/
     add_header              Strict-Transport-Security max-age=500;
 
+    # Allow nginx to let .crumb headers pass through for CSRF protection
+    # See http://goo.gl/vbpfA
+    ignore_invalid_headers off;
 
     location / {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
