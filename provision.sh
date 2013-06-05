@@ -1,11 +1,17 @@
 #!/bin/bash
 
-# Update OS packages
+# OS packages
+
+## Add repositories
+add-apt-repository -y ppa:pitti/postgresql
+wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list
+
+## Update OS packages
 aptitude -q=2 -y update
 DEBIAN_FRONTEND=noninteractive aptitude -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" safe-upgrade
 
-# Install OS packages
-add-apt-repository -y ppa:pitti/postgresql
+## Install OS packages
 aptitude -y install curl git-core jenkins libpq-dev nginx postgresql python-software-properties ufw virtualenvwrapper vim
 
 # Update Jenkins plugins
