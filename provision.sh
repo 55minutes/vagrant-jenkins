@@ -90,7 +90,7 @@ fi
 
 ## conf.d
 jenkins=$(cat <<'EOF'
-upstream app_server {
+upstream jenkins {
     server 127.0.0.1:8080 fail_timeout=0;
 }
 
@@ -117,7 +117,7 @@ server {
         proxy_redirect off;
 
         if (!-f $request_filename) {
-            proxy_pass http://app_server;
+            proxy_pass http://jenkins;
             break;
         }
     }
