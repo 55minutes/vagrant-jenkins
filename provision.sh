@@ -5,6 +5,7 @@
 
 ## Add repositories
 add-apt-repository -y ppa:pitti/postgresql
+add-apt-repository -y ppa:chris-lea/node.js
 wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
 echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list
 
