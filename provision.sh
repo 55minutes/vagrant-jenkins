@@ -40,6 +40,9 @@ echo "$bashrc" > /tmp/rbenvrc
 ## Only replace ~/.bashrc if it doesn't already contain "rbenv init"
 su -l jenkins -c "grep -qs 'rbenv init' ~/.bashrc || (cat /tmp/rbenvrc ~/.bashrc > ~/.bashrc.tmp && mv ~/.bashrc.tmp ~/.bashrc)"
 
+## Boostrap rbenv
+~jenkins/.rbenv/plugins/rbenv-bootstrap/bin/rbenv-bootstrap-ubuntu-12-04
+
 
 ##########################
 # Update Jenkins plugins #
