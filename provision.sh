@@ -14,7 +14,7 @@ aptitude -q=2 -y update
 DEBIAN_FRONTEND=noninteractive aptitude -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" safe-upgrade
 
 ## Install OS packages
-aptitude -y install curl git-core jenkins libpq-dev nginx postgresql python-software-properties ufw virtualenvwrapper vim
+aptitude -y install curl git-core imagemagick jenkins libmagickcore-dev libmagickwand-dev libpq-dev libqtwebkit-dev nginx nodejs postgresql python-software-properties ufw vim virtualenvwrapper
 
 
 fi
