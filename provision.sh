@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# OS packages
+###############
+# OS packages #
 
 ## Add repositories
 add-apt-repository -y ppa:pitti/postgresql
@@ -15,11 +16,13 @@ DEBIAN_FRONTEND=noninteractive aptitude -y -o Dpkg::Options::="--force-confdef" 
 aptitude -y install curl git-core jenkins libpq-dev nginx postgresql python-software-properties ufw virtualenvwrapper vim
 
 
-# Create PostgreSQL Jenkins user
+##################################
+# Create PostgreSQL Jenkins user #
 su -l postgres -c "createuser jenkins --createdb --no-superuser --no-createrole"
 
 
-# Install rbenv
+#################
+# Install rbenv #
 aptitude -y install git-core
 su -l jenkins -c "curl -L https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash"
 
@@ -36,7 +39,8 @@ echo "$bashrc" > /tmp/rbenvrc
 su -l jenkins -c "grep -qs 'rbenv init' ~/.bashrc || (cat /tmp/rbenvrc ~/.bashrc > ~/.bashrc.tmp && mv ~/.bashrc.tmp ~/.bashrc)"
 
 
-# Update Jenkins plugins
+##########################
+# Update Jenkins plugins #
 jenkins_url=http://localhost:8080
 cli_jar=/tmp/jenkins-cli.jar
 jenkins_cli="java -jar $cli_jar -s $jenkins_url"
@@ -57,7 +61,8 @@ done
 $jenkins_cli safe-restart
 
 
-## Nginx configuration
+#######################
+# Nginx configuration #
 jenkins=$(cat <<'EOF'
 upstream app_server {
     server 127.0.0.1:8080 fail_timeout=0;
