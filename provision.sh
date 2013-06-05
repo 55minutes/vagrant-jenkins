@@ -83,6 +83,18 @@ server {
     listen [::]:80 default ipv6only=on;
     server_name ci.55minutes.com;
 
+    rewrite ^(.*) https://ci.55minutes.com$1 permanent;
+}
+
+server {
+    listen 443;
+    listen [::]:443 default ipv6only=on;
+    server_name ci.55minutes.com;
+
+    ssl on;
+    ssl_certificate /etc/ssl/ci.55minutes.com.crt;
+    ssl_certificate_key /etc/ssl/ci.55minutes.com.key;
+
     location / {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $http_host;
