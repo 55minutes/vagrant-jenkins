@@ -12,12 +12,12 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder '.', '/vagrant', disabled: true
   config.vm.provision :shell, :path => "provision.sh"
 
-  config.vm.define :ci do |host|
-    host.vm.hostname = "ci.55minutes.com"
+  config.vm.define :test do |host|
+    host.vm.hostname = "test"
   end
 
-  config.vm.define :test do |host|
-    host.vm.hostname = "test.ci.55minutes.com"
+  config.vm.define :ci do |host|
+    host.vm.hostname = "ci"
   end
 
   config.ssh.private_key_path = secrets['ssh_private_key_path']
