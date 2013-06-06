@@ -91,7 +91,7 @@ if ! [ -f $ssl_key -a -f $ssl_crt ]; then
 fi
 
 ## conf.d
-jenkins=$(cat <<'EOF'
+nginx_jenkins=$(cat <<'EOF'
 upstream jenkins {
     server 127.0.0.1:8080 fail_timeout=0;
 }
@@ -142,7 +142,7 @@ server {
 }
 EOF
 )
-echo "$jenkins" > /etc/nginx/sites-available/jenkins
+echo "$nginx_jenkins" > /etc/nginx/sites-available/jenkins
 ln -s -f /etc/nginx/sites-available/jenkins /etc/nginx/sites-enabled/
 rm -f /etc/nginx/sites-enabled/default
 service nginx restart
