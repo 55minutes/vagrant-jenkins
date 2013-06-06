@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: Set up backup for /var/lib/jenkins
+
 ###############
 # OS packages #
 
@@ -56,8 +58,8 @@ if ! su -l postgres -c "psql -c '\du' | grep -q jenkins"; then
 fi
 
 
-##########################
-# Update Jenkins plugins #
+###############################################
+# Update Jenkins settings and install plugins #
 jenkins_url=http://localhost:8080
 cli_jar=/tmp/jenkins-cli.jar
 jenkins_cli="java -jar $cli_jar -s $jenkins_url"
