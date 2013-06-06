@@ -62,6 +62,10 @@ jenkins_url=http://localhost:8080
 cli_jar=/tmp/jenkins-cli.jar
 jenkins_cli="java -jar $cli_jar -s $jenkins_url"
 
+## Update the timezone
+## TODO: it would be nicer if we put this in the JAVA_ARGS section
+echo 'JAVA_ARGS="-Dorg.apache.commons.jelly.tags.fmt.timeZone=America/Los_Angeles"' >> /etc/default/jenkins
+
 ## Update the update center
 curl -L http://updates.jenkins-ci.org/update-center.json | sed '1d;$d' | curl -X POST -H 'Accept: application/json' -d @- $jenkins_url/updateCenter/byId/default/postBack
 
