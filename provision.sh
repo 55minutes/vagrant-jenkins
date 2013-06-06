@@ -4,6 +4,8 @@
 # OS packages #
 
 ## Add repositories
+### We have to install python-software-properties first in order to use add-apt-repository
+aptitude -y install python-software-properties
 add-apt-repository -y ppa:pitti/postgresql
 add-apt-repository -y ppa:chris-lea/node.js
 wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
@@ -14,7 +16,7 @@ aptitude -q=2 -y update
 DEBIAN_FRONTEND=noninteractive aptitude -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" safe-upgrade
 
 ## Install OS packages
-aptitude -y install curl debian-goodies git-core imagemagick jenkins libicu48 libmagickcore-dev libmagickwand-dev libpq-dev libqtwebkit-dev nginx nodejs postgresql python-software-properties ufw vim virtualenvwrapper xvfb
+aptitude -y install curl debian-goodies git-core imagemagick jenkins libicu48 libmagickcore-dev libmagickwand-dev libpq-dev libqtwebkit-dev nginx nodejs postgresql ufw vim virtualenvwrapper xvfb
 
 
 ####################
