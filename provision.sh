@@ -18,7 +18,7 @@ aptitude -q=2 -y update
 DEBIAN_FRONTEND=noninteractive aptitude -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" safe-upgrade
 
 ## Install OS packages
-aptitude -y install curl debian-goodies git-core imagemagick jenkins libicu48 libmagickcore-dev libmagickwand-dev libpq-dev libqtwebkit-dev maven nginx nodejs openjdk-6-jdk postgresql ufw vim virtualenvwrapper xvfb
+aptitude -y install curl debian-goodies git-core imagemagick jenkins libicu48 libmagickcore-dev libmagickwand-dev libpq-dev libqtwebkit-dev libsqlite3-dev maven nginx nodejs openjdk-6-jdk postgresql sqlite3 ufw vim virtualenvwrapper xvfb
 
 
 ####################
