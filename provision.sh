@@ -115,16 +115,17 @@ server {
     listen [::]:443 ipv6only=on;
     server_name ci.55minutes.com;
 
+    # Only accept strong ciphers, but disable the weaker ADH and MD5 ciphers
+    ssl_ciphers ECDH+AESGCM:ECDH+AES256:ECDH+AES128:DH+3DES:RSA+3DES:!ADH:!AECDH:!MD5;
+    ssl_prefer_server_ciphers on;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+
     ssl_certificate         /etc/ssl/ci.55minutes.com.crt;
     ssl_certificate_key     /etc/ssl/ci.55minutes.com.key;
 
     # Enable SSL session cache
     ssl_session_cache       shared:SSL:10m;
     ssl_session_timeout     5m;
-
-    # Only accept strong ciphers, but disable the weaker ADH and MD5 ciphers
-    ssl_ciphers             HIGH:!ADH:!MD5;
-    ssl_prefer_server_ciphers on;
 
     # Enable STS, http://8n.href.be/
     add_header              Strict-Transport-Security max-age=500;
